@@ -25,9 +25,9 @@ public class ClientThread extends Thread{
             System.out.println("Cliente #"+clientNumber+" recibe: " + response);
 
         } catch (UnknownHostException ex) {
-            System.out.println("Servidor no encontrado: " + ex.getMessage());
+            System.out.println("Cliente #"+clientNumber+" servidor no encontrado: " + ex.getMessage());
         } catch (IOException ex) {
-            System.out.println("I/O error: " + ex.getMessage());
+            System.out.println("Cliente #"+clientNumber+" I/O error: " + ex.getMessage());
         }
     }
 }

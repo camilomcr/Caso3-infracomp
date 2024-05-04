@@ -9,7 +9,6 @@ public class Server {
     }
     private final static String PADDING = "PKCS5Padding";
     private final static int port = 11111;
-    private final static String serverIp = "localhost";
 
     private static long power(long a, long b, long p)
     {
