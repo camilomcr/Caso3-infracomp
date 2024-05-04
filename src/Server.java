@@ -1,10 +1,15 @@
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
-
+import java.io.*;
+import java.net.*;
 public class Server {
 
-    private final static String PADDING = "PKCS5Padding";
+    public static void main(String[] args){
 
+    }
+    private final static String PADDING = "PKCS5Padding";
+    private final static int port = 11111;
+    private final static String serverIp = "localhost";
 
     private static long power(long a, long b, long p)
     {
