@@ -29,7 +29,7 @@ public class Client {
     }
 
     public final static String PADDING = "PKCS5Padding";
-    public final static int port = 11111;
+    public final static int port = 12345;
     public final static String serverIp = "localhost";
 
 

@@ -4,13 +4,20 @@ import java.io.*;
 import java.net.*;
 public class Server {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
+        int serverNumber=0;
+        while(true){
+            serverNumber++;
+            ServerThread serverThread = new ServerThread(Server.port, serverNumber);
+            serverThread.start();
+            serverThread.join();
+        }
 
     }
-    private final static String PADDING = "PKCS5Padding";
-    private final static int port = 11111;
+    public final static String PADDING = "PKCS5Padding";
+    public final static int port = 12345;
 
-    private static long power(long a, long b, long p)
+    public static long power(long a, long b, long p)
     {
         if (b == 1)
             return a;
