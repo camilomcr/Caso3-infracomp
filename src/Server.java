@@ -13,13 +13,8 @@ import java.util.Base64;
 public class Server {
 
     public static void main(String[] args) throws InterruptedException {
-        int serverNumber=0;
-        while(true){
-            serverNumber++;
-            ServerThread serverThread = new ServerThread(Server.port, serverNumber);
-            serverThread.start();
-            serverThread.join();
-        }
+        ServerThread serverThread = new ServerThread(Server.port, 0);
+        serverThread.start();
 
     }
 

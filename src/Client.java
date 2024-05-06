@@ -16,10 +16,14 @@ public class Client {
             System.out.println("2) Cerrar cliente.");
             int option = scanner.nextInt();
             if (option==1) {
+                System.out.print("Ingresa el numero de clientes: ");
+                int clients = scanner.nextInt();
                 System.out.print("Ingresa el numero a enviar al servidor: ");
                 int number = scanner.nextInt();
-                clientNumber++;
-                new ClientThread(Client.serverIp, Client.port, number, clientNumber).start();
+                for (int i =0; i<clients; i++){
+                    clientNumber++;
+                    new ClientThread(Client.serverIp, Client.port, number, clientNumber).start();
+                }
             }else{
                 break;
             }
@@ -89,7 +93,7 @@ public class Client {
         }
     }
 
-    public static byte[][] getAndSplitDigest(BigInteger key) {
+        public static byte[][] getAndSplitDigest(BigInteger key) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
 

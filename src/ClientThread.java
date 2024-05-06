@@ -3,6 +3,8 @@ import javax.crypto.SecretKey;
 import java.io.*;
 import java.math.BigInteger;
 import java.net.*;
+import java.time.Duration;
+import java.time.Instant;
 import java.security.NoSuchAlgorithmException;
 
 public class ClientThread extends Thread{
@@ -40,20 +42,29 @@ public class ClientThread extends Thread{
             System.out.println("Cliente #"+clientNumber+" recibe P: " + P);
             BigInteger GxP = new BigInteger(input.readLine());
             System.out.println("Cliente #"+clientNumber+" recibe G^x%P: " + GxP);
+            Instant t = Instant.now();
             BigInteger GyP= G.modPow(yNumber,P);
             output.println(GyP);
             System.out.println("Cliente #"+clientNumber+" envia G^y%P: " + GyP);
             BigInteger masterKey = GxP.modPow(yNumber, P);
+            Duration timeElapsed = Duration.between(t, Instant.now());
             System.out.println("Cliente #"+clientNumber+" calcula llave maestra: " + masterKey);
+            System.out.println("Cliente #"+clientNumber+" tiempo de calculo de G^y%P (ns): " + timeElapsed.toNanos());
             byte[][] keys = Client.getAndSplitDigest(masterKey);
             byte[] cypherKey = keys[0];
             byte[] hmacKey = keys[1];
+            t = Instant.now();
             String cypherMessage = Client.cypher(cypherKey, message+"");
             output.println(cypherMessage);
+            timeElapsed = Duration.between(t, Instant.now());
             System.out.println("Cliente #"+clientNumber+" envia el mensaje " + message + " cifrado: " +cypherMessage);
+            System.out.println("Cliente #"+clientNumber+" tiempo de cifrado (ns): " + timeElapsed.toNanos());
+            t = Instant.now();
             String hmacMessage = Client.computeHMAC(message+"", hmacKey);
             output.println(hmacMessage);
+            timeElapsed = Duration.between(t, Instant.now());
             System.out.println("Cliente #"+clientNumber+" envia el HMAC: " + hmacMessage);
+            System.out.println("Cliente #"+clientNumber+" tiempo de generar HMAC (ns): " + timeElapsed.toNanos());
             String cypherResponse = input.readLine();
             String response = Client.decypher(cypherKey, cypherResponse);
             System.out.println("Cliente #"+clientNumber+" recibe la respuesta cifrada: " + cypherResponse);
